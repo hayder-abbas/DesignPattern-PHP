@@ -8,7 +8,7 @@ class DB {
 
     private function __construct() {}
 
-    public static function getInstance(): ?DB {
+    public static function getInstance(): ?DB {        
         if(self::$db === null) {
             self::$db = new DB();
         }
