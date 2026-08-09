@@ -2,11 +2,11 @@
 
 require 'vendor/autoload.php';
 
-use src\BankFactory;
+$paypalBank = new src\PaypalBank();
+$visaBank = new src\VisaBank();
 
-try {
-    $bank = BankFactory::getBank('123');
-    $bank->createAccountBank();
-} catch (Exception $exc) {
-    echo $exc->getMessage();
-}
+$paypalAccount = $paypalBank->createAccount();
+$visaAccount = $visaBank->createAccount();
+
+print_r($paypalAccount);
+print_r($visaAccount);

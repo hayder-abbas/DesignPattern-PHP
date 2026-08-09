@@ -2,7 +2,12 @@
 
 namespace src;
 
-interface Bank {
+abstract class Bank {
 
-    function createAccountBank();
+    public function createAccount(): string {
+        $account = $this->getAccount();
+        return $account->saveData();
+    }
+
+    public abstract function getAccount(): Account;
 }
