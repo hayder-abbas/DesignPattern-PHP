@@ -5,8 +5,10 @@ require_once 'vendor/autoload.php';
 
 use src\DB;
 
-$con1 = DB::getInstance();
+$con1 = DB::getInstance('MySQL');
 $con2 = DB::getInstance();
 $con3 = DB::getInstance();
 
-var_dump($con1, $con2, $con3);
+print_r($con1->getData());
+print_r($con2->getData());
+print_r($con3->getData());
