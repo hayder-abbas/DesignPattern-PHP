@@ -6,7 +6,8 @@ use src\Account;
 
 class VisaAccount implements Account {
 
-    public function saveData() {
+    #[\Override]
+    public function prepareAccount() {
         return "Visa account has been created successfuly\n";
     }
 }

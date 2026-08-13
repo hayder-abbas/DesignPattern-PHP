@@ -2,22 +2,10 @@
 
 require 'vendor/autoload.php';
 
-use src\EuropeFinancialToolsFactory;
-use src\CanadaFinancialToolsFactory;
-use src\OrderProcessor;
-use src\Order;
+$paypal = new src\PaypalBank();
+print_r($paypal->createAccount());
+print_r($paypal->payingTax());
 
-$countryCode = "EU";
-$order = new Order;
-$factory = [
-    "EU" => new EuropeFinancialToolsFactory,
-    "CA" => new CanadaFinancialToolsFactory
-];
-try {
-    $orderProcessor = new OrderProcessor(
-            $factory[$countryCode] ?? throw new \Exception("The country in not define")
-    );
-    $orderProcessor->processOrder($order);
-} catch (Exception $exc) {
-    echo $exc->getMessage();
-}
+$visa = new src\VisaBank();
+print_r($visa->createAccount());
+print_r($visa->payingTax());
