@@ -2,14 +2,18 @@
 
 require 'vendor/autoload.php';
 
-use src\Robot;
-use src\RobotBuilder;
+$sportCar = (new src\SportCarBuilder())
+        ->setEngine('V8')
+        ->setColor('Blue')
+        ->addSunroof()
+        ->build();
 
-$robotBuilder = new RobotBuilder(new Robot());
-$newRobot = $robotBuilder->getRobot();
+$familyCar = (new src\FamilyCarBuilder())
+        ->setEngine('v6')
+        ->setColor('Green')
+        ->addSunroof()
+        ->addGPS()
+        ->build();
 
-echo "Robot Built...\n";
-printf("Robot Head type: %s", $newRobot->getRobotHead());
-printf("Robot Torso type: %s", $newRobot->getRobotTorso());
-printf("Robot Arms type: %s", $newRobot->getRobotArms());
-printf("Robot Legs type: %s", $newRobot->getRobotLegs());
+echo $sportCar;
+echo $familyCar;
