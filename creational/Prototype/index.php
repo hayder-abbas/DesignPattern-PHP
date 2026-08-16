@@ -1,16 +1,28 @@
 <?php
 
-use src\Animal;
-use src\Human;
-
 require 'vendor/autoload.php';
 
-$human1 = new Human("Haydar", 33, new Animal("fifo", "cat"));
+/**
+ * Prototype Pattern in PHP
+ * -------------------------
+ * Instead of building a new object from scratch every time (which can be
+ * slow or repetitive if the object needs a lot of setup), you configure
+ * one "prototype" object once, then clone it whenever you need a new
+ * copy. Each clone can then be tweaked independently.
+ */
+$template = new src\Page(
+        title: 'Untitled',
+        body: 'Write your content here...',
+        author: new src\Author('Hayder')
+);
 
-$human2 = $human1->createClone();
-$human2->setName("Abbas");
-$human2->setAnimal(new Animal("lifo", "dog"));
+$post1 = $template->clone();
+$post1->title = 'My First Post';
+$post1->author->name = 'Guest Writer'; // only changes post1's author
 
-var_dump($human1);
-echo "=================================\n";
-var_dump($human2);
+$post2 = $template->clone();
+$post2->title = 'My Second Post';
+
+echo $template->title . " — by " . $template->author->name . "\n";
+echo $post1->title . " — by " . $post1->author->name . "\n";
+echo $post2->title . " — by " . $post2->author->name . "\n";
