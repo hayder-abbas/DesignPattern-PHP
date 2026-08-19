@@ -1,11 +1,18 @@
 <?php
 
-require_once 'vendor/autoload.php';
+require_once "vendor/autoload.php";
 
-$car = new src\Car();
-$car->buildVehicle();
+/**
+ * Template Method Pattern in PHP
+ * ---------------------------------
+ * Defines the skeleton of an algorithm in a base (abstract) class, with
+ * the exact order of steps fixed. Subclasses override individual steps
+ * without changing that order — so the overall process stays
+ * consistent, but the details differ per subclass.
+ */
 
-echo "=========================\n";
+echo "Making tea:\n";
+new src\Tea()->prepare();
 
-$truck = new \src\Truck();
-$truck->buildVehicle();
+echo "\nMaking coffee:\n";
+new src\Coffee()->prepare();
