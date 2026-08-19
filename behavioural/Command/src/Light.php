@@ -2,17 +2,13 @@
 
 namespace src;
 
-class Light implements Devices
-{
-    public string $name = "Light";
+class Light {
 
-    public function on(): void
-    {
-        echo $this->name . " is ON!\n";
+    public function turnOn(): void {
+        echo "The light is ON\n";
     }
 
-    public function off(): void
-    {
-        echo $this->name . " is OFF!\n";
+    public function turnOff(): void {
+        echo "The light is OFF\n";
     }
 }
