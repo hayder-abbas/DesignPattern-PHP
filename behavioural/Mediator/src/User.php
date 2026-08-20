@@ -2,17 +2,23 @@
 
 namespace src;
 
-abstract class User
+class User
 {
-    protected ChatMediator $mediator;
-    protected String $name;
-
-    public function __construct(ChatMediator $mediator, string $name)
-    {
-        $this->mediator = $mediator;
-        $this->name = $name;
+    public function __construct(
+        private string $name,
+        private ChatMediator $mediator,
+    ) {
+        $this->mediator->addUser($this);
     }
 
-    public abstract function send(string $msg): void;
-    public abstract function receive(string $msg): void;
+    public function send(string $message): void
+    {
+        echo "{$this->name} sends: {$message}\n";
+        $this->mediator->sendMessage($message, $this);
+    }
+
+    public function receive(string $message, User $sender): void
+    {
+        echo "{$this->name} receives from {$sender->name}: {$message}\n";
+    }
 }
