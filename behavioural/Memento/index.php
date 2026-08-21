@@ -1,23 +1,32 @@
 <?php
 
-require_once 'vendor/autoload.php';
+require_once "vendor/autoload.php";
 
+/**
+ * Memento Pattern
+ * -------------------------
+ * Lets you capture an object's internal state and save it externally,
+ * so it can be restored later — without exposing that object's
+ * internals to whatever is doing the saving. The Originator creates
+ * and restores from Mementos; the Caretaker just holds onto them
+ * without ever looking inside.
+ */
 
-$originator = new src\Originator;
-$careTaker = new src\CareTaker;
+$editor = new src\Editor();
+$history = new src\History();
 
-$originator->setState("State #1");
-$careTaker->add($originator->saveStateToMemento());
-$originator->setState("State #2");
-$careTaker->add($originator->saveStateToMemento());
-$originator->setState("State #3");
-$careTaker->add($originator->saveStateToMemento());
-$originator->setState("State #4");
+$editor->type("Hello");
+$history->push($editor->save()); // snapshot: "Hello"
 
-printf("Current State: %s\n", $originator->getState());
-$originator->getStateFromMemento($careTaker->get(0));
-printf("First saved State: %s\n", $originator->getState());
-$originator->getStateFromMemento($careTaker->get(1));
-printf("Second saved State: %s\n", $originator->getState());
-$originator->getStateFromMemento($careTaker->get(2));
-printf("Third saved State: %s\n", $originator->getState());
+$editor->type(", world");
+$history->push($editor->save()); // snapshot: "Hello, world"
+
+$editor->type("!!!");
+echo "Current: {$editor->getContent()}\n";
+
+// Undo twice, one snapshot at a time
+$editor->undo($history->pop());
+echo "After 1 undo: {$editor->getContent()}\n";
+
+$editor->undo($history->pop());
+echo "After 2 undos: {$editor->getContent()}\n";
