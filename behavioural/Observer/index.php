@@ -1,23 +1,26 @@
 <?php
 
-use src\Course;
-use src\Student;
+require_once "vendor/autoload.php";
 
-require_once 'vendor/autoload.php';
+/**
+ * Observer Pattern
+ * --------------------------
+ * A Subject keeps a list of Observers and notifies all of them
+ * whenever something happens, without needing to know what each
+ * observer actually does with that information. Observers subscribe
+ * on their own and react independently — the Subject just broadcasts.
+ */
 
-$person1 = new Student("Haydar");
-$person2 = new Student("Abbas");
-$person3 = new Student("Ali");
+$user = new src\User("Alice", "alice@example.com");
+$logger = new src\Logger();
+$emailNotifier = new src\EmailNotifier();
 
-$subject = new Course("Math");
-$subject->addObserver($person1);
-$subject->addObserver($person2);
-$subject->addObserver($person3);
+$user->attach($logger);
+$user->attach($emailNotifier);
 
-$subject->setAvailability(true);
+// Change email – triggers notification
+$user->setEmail("alice.new@example.com");
 
-echo "---------------------\n";
-
-$subject->removeObserver($person2);
-
-$subject->setAvailability(false);
+// Detach logger and change email again
+$user->detach($logger);
+$user->setEmail("alice@company.com");
