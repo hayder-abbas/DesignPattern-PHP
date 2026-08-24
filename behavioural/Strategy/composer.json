@@ -1,5 +1,5 @@
 {
-    "name": "haydar/strategy",
+    "name": "strategy/pattern",
     "autoload": {
         "psr-4": {
             "src\\": "src/"
