@@ -1,27 +1,29 @@
 <?php
 
-require_once 'vendor/autoload.php';
+require_once "vendor/autoload.php";
 
-use src\Book;
-use src\Fruit;
-use src\VisitorImpl;
+/**
+ * Visitor Pattern
+ * --------------------------
+ * Lets you add new operations to a set of classes without modifying
+ * those classes. Each Element "accepts" a Visitor and hands itself
+ * back to it (accept($this)); the Visitor then runs its own
+ * type-specific method for that Element. Need a new operation later?
+ * Write a new Visitor — the Element classes never change.
+ */
 
-$items = new \ArrayObject([
-    new Book(20, "1234"),
-    new Book(100, "5678"),
-    new Fruit(10, 2, "Banana"),
-    new Fruit(5, 5, "Apple")
-]);
+$cart = [
+    new src\Book(price: 20.0, isImported: true),
+    new src\Electronics(price: 500.0),
+];
 
-$total = calculatePrice($items);
-printf("Total Cost = %d\n", $total);
+$taxCalculator = new src\TaxCalculator();
+$shippingCalculator = new src\ShippingCalculator();
 
-function calculatePrice($items)
-{
-    $visitor = new VisitorImpl;
-    $sum = 0;
-    foreach ($items as $item) {
-        $sum += $item->accept($visitor);
-    }
-    return $sum;
+foreach ($cart as $item) {
+    $tax = $item->accept($taxCalculator);
+
+    $shipping = $item->accept($shippingCalculator);
+
+    echo sprintf("Tax: \$%.2f, Shipping: \$%.2f\n", $tax, $shipping);
 }

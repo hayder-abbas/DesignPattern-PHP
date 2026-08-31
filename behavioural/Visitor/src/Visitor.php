@@ -4,6 +4,6 @@ namespace src;
 
 interface Visitor
 {
-    public function visitBook(Book $book): int;
-    public function visitFruit(Fruit $fruit): int;
+    public function visitBook(Book $book): float;
+    public function visitElectronics(Electronics $electronics): float;
 }
